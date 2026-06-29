@@ -1,0 +1,20 @@
+
+(function(){const s=window._themeState || 'light'||'light';document.documentElement.setAttribute('data-theme',s);})();
+document.addEventListener('DOMContentLoaded',()=>{
+  const tb=document.getElementById('themeToggle');
+  if(tb){const ui=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';tb.innerHTML=d?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';};ui();tb.addEventListener('click',()=>{const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);void(0);//'theme',n);ui();});}
+  const h=document.querySelector('.header');if(h)window.addEventListener('scroll',()=>h.classList.toggle('scrolled',window.scrollY>20));
+  const hb=document.querySelector('.hamburger'),mn=document.querySelector('.mobile-nav');
+  if(hb&&mn){hb.addEventListener('click',()=>{hb.classList.toggle('open');mn.classList.toggle('open');document.body.style.overflow=mn.classList.contains('open')?'hidden':'';});mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hb.classList.remove('open');mn.classList.remove('open');document.body.style.overflow='';}));}
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+  const btt=document.getElementById('backToTop');if(btt){window.addEventListener('scroll',()=>btt.classList.toggle('visible',window.scrollY>400));btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));}
+  document.querySelectorAll('.faq-question').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.closest('.faq-item');const ans=item.querySelector('.faq-answer');const open=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-answer').style.maxHeight='0';});if(!open){item.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';}});});
+  let step=1;const panels=document.querySelectorAll('.step-panel'),inds=document.querySelectorAll('.step-indicator');
+  const upd=()=>{panels.forEach((p,i)=>p.classList.toggle('active',i+1===step));inds.forEach((s,i)=>{s.classList.remove('active','done');if(i+1===step)s.classList.add('active');if(i+1<step)s.classList.add('done');});};
+  document.querySelectorAll('[data-next-step]').forEach(b=>b.addEventListener('click',()=>{if(step<panels.length){step++;upd();window.scrollTo({top:0,behavior:'smooth'});}}));
+  document.querySelectorAll('[data-prev-step]').forEach(b=>b.addEventListener('click',()=>{if(step>1){step--;upd();}}));
+  document.querySelectorAll('.service-option').forEach(o=>o.addEventListener('click',()=>{o.closest('.service-options').querySelectorAll('.service-option').forEach(x=>x.classList.remove('selected'));o.classList.add('selected');}));
+  document.querySelectorAll('.time-slot:not(.unavailable)').forEach(s=>s.addEventListener('click',()=>{s.closest('.time-slots').querySelectorAll('.time-slot').forEach(x=>x.classList.remove('selected'));s.classList.add('selected');}));
+  const alf=document.getElementById('adminLoginForm');if(alf){alf.addEventListener('submit',e=>{e.preventDefault();const pw=document.getElementById('adminPassword').value;if(pw==='admin123'){document.querySelector('.admin-login').style.display='none';document.querySelector('.admin-panel').style.display='block';}else{document.getElementById('adminError').textContent='Incorrect password. Try admin123.';}});}
+});

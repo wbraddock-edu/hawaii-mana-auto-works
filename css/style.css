@@ -268,3 +268,8 @@ p{font-size:0.95rem;color:var(--text-light);max-width:68ch;}
 .price-table td{padding:12px 20px;border-bottom:1px solid var(--border);font-size:0.9rem;}
 .price-table tr:hover td{background:var(--gray-100);}
 .price-tag{color:var(--accent);font-weight:700;font-family:var(--font-display);font-size:1.1rem;white-space:nowrap;}
+
+.hero h1, .hero p, .hero-content, .hero .eyebrow-label, .hero .tag { color: #fff !important; }
+
+[data-theme="dark"] .hero { background: transparent !important; }
+[data-theme="dark"] .hero-bg img { opacity: 1 !important; }
